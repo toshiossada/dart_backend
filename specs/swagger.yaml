@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  description: 'API da semana do backend'
+  version: '1.0.0'
+  title: 'Semana do Backend'
+servers:
+  - url: http://localhost:8080
+    description: Local server
+  - url: http://146.190.226.218:4466
+    description: Remote server
+tags:
+  - name: 'user'
+    description: 'Access to User'
+
+paths:
+  # user
+  /user/{id}:
+    $ref: 'src/user.yaml#/components/GetOneOrDelete'
+  /user:
+    $ref: 'src/user.yaml#/components/UserCrud'
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Auth header (Authorization) Access Token'
+    bearerRefreshAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'RefreshToken'
+  schemas:
+    BackendException:
+      type: object
+      properties:
+        error:
+          type: string

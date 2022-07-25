@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "backend",
+            "request": "launch",
+            "type": "dart",
+            "program": "bin/backend.dart"
+        }
+    ]
+}
+

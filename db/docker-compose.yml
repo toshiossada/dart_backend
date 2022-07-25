@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  mysqlsrv:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: "dart_backend"
+    ports:
+      - "3306:3306"
+
+    networks:
+      - mysql-compose-network
+
+
+
+networks:
+  mysql-compose-network:
+    driver: bridge

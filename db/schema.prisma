@@ -1,0 +1,20 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:123456@localhost:3306/dart_backend"
+}
+
+
+model User {
+    id               Int      @id @default(autoincrement())
+    name             String
+    email            String   @unique
+    password         String
+    role             UserRole  @default(user)
+}
+
+
+enum UserRole {
+    admin
+    user
+    manager
+}
