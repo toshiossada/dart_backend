@@ -50,6 +50,12 @@ class UserController {
     final id = int.parse(args.params['id']);
     final foundUser = await _userRepository.getUserById(id);
     if (foundUser == null) return Response.notFound('Usuario nao encontrado');
+    final foundUserEmail = await _userRepository.getByEmail(user.email);
+    if (foundUserEmail != null && foundUserEmail.id != id) {
+      return Response.internalServerError(
+        body: 'Email ja cadastrado em outro usuario',
+      );
+    }
 
     final updated = await _userRepository.update(user.copyWith(id: id));
     return Response.ok(updated.toJson());
