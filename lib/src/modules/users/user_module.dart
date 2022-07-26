@@ -11,6 +11,8 @@ class UserModule extends Module {
         Bind.factory<UserController>((i) => UserController(
               userRepository: i(),
               bCryptService: i(),
+              jwtService: i(),
+              requestExtractor: i(),
             )),
         Bind.factory<IUserRepository>((i) => UserRepository(database: i())),
       ];

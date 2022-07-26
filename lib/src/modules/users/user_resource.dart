@@ -3,16 +3,17 @@ import 'dart:async';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
+import '../../commons/middlewares/auth_guard.dart';
 import 'controller/user_controller.dart';
 
 class UserResource extends Resource {
   @override
   List<Route> get routes => [
-        Route.get('/', _getAllUser),
+        Route.get('/', _getAllUser, middlewares: [AuthGuard()]),
         Route.post('/', _createUser),
-        Route.get('/:id', _getUser),
-        Route.put('/:id', _update),
-        Route.delete('/:id', _delete),
+        Route.get('/:id', _getUser, middlewares: [AuthGuard()]),
+        Route.put('/:id', _update, middlewares: [AuthGuard()]),
+        Route.delete('/:id', _delete, middlewares: [AuthGuard()]),
       ];
 
   FutureOr<Response> _getAllUser(Injector injector) {
@@ -33,10 +34,11 @@ class UserResource extends Resource {
     return controller.delete(args);
   }
 
-  FutureOr<Response> _update(ModularArguments args, Injector injector) {
+  FutureOr<Response> _update(
+      ModularArguments args, Injector injector, Request request) {
     final controller = injector.get<UserController>();
 
-    return controller.update(args);
+    return controller.update(args, request);
   }
 
   FutureOr<Response> _createUser(ModularArguments args, Injector injector) {

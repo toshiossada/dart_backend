@@ -11,7 +11,6 @@ class DotEnvService {
   }
 
   late final DotEnv dotEnv;
-  param(String key) => dotEnv[key];
 
   _init({DotEnv? dotEnv, Map<String, dynamic>? map}) {
     if (dotEnv != null) {

@@ -11,7 +11,7 @@ class JwtService implements IJwtService {
 
   @override
   String generateToken(Map claims, String audiance) {
-    final jwt = JWT(claims, audience: Audience.one(audiance));
+    final jwt = JWT(claims, audience: Audience.one(audiance),);
     final token = jwt.sign(SecretKey(dotEnvService.jwtKey));
     return token;
   }

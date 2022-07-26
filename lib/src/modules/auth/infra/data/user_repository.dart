@@ -36,4 +36,30 @@ WHERE email = :email''';
 
     return user;
   }
+
+  @override
+  FutureOr<UserEntity?> getById(int id) async {
+    var query = '''
+SELECT
+	id,
+	name,
+    email,
+    password,
+    role
+FROM User
+WHERE id = :id''';
+
+    final result = await _database.query(
+      query,
+      {
+        "id": id,
+      },
+    );
+    if (result.rows.isEmpty) return null;
+
+    var row = result.rows.first;
+    var user = UserEntity.fromMap(row);
+
+    return user;
+  }
 }

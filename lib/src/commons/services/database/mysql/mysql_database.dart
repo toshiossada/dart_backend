@@ -19,11 +19,11 @@ class MysqlDatabase implements RemoteDatabase, Disposable {
 
   _init() async {
     final conn = await MySQLConnection.createConnection(
-      host: dotenvService.param('host'),
-      port: int.parse(dotenvService.param('port')),
-      userName: dotenvService.param('user'),
-      password: dotenvService.param('password'),
-      databaseName: dotenvService.param('db'),
+      host: dotenvService.host,
+      port: dotenvService.port,
+      userName: dotenvService.user,
+      password: dotenvService.password,
+      databaseName: dotenvService.db,
     );
     await conn.connect();
     completer.complete(conn);

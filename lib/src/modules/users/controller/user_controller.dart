@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:backend/src/commons/extensions/list_extension.dart';
 import 'package:backend/src/modules/users/domain/entities/user_enitity.dart';
@@ -6,17 +7,25 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
 import '../../../commons/services/bcrypt/bcrypt_service_interface.dart';
+import '../../../commons/services/jwt/jwt_service_interface.dart';
+import '../../../commons/services/request_extractor/request_extractor.dart';
 import '../domain/repositories/user_repository_interface.dart';
 
 class UserController {
   final IUserRepository _userRepository;
   final IBCryptService _bCryptService;
+  final RequestExtractor _requestExtractor;
+  final IJwtService _jwtService;
 
   UserController({
     required IUserRepository userRepository,
     required IBCryptService bCryptService,
+    required RequestExtractor requestExtractor,
+    required IJwtService jwtService,
   })  : _userRepository = userRepository,
-        _bCryptService = bCryptService;
+        _bCryptService = bCryptService,
+        _requestExtractor = requestExtractor,
+        _jwtService = jwtService;
 
   FutureOr<Response> getAllUser() async {
     final users = await _userRepository.getUsers();
@@ -45,11 +54,20 @@ class UserController {
     }
   }
 
-  FutureOr<Response> update(ModularArguments args) async {
+  FutureOr<Response> update(ModularArguments args, Request request) async {
+    final token = _requestExtractor.getAuthorizationBearer(request);
+    if (token == null) {
+      return Response.forbidden(jsonEncode({'error': 'Token invalido'}));
+    }
+    final payload = _jwtService.getPayload(token);
+
     final user = UserEntity.fromMap(args.data);
-    final id = int.parse(args.params['id']);
-    final foundUser = await _userRepository.getUserById(id);
-    if (foundUser == null) return Response.notFound('Usuario nao encontrado');
+    final id = payload['id'];
+
+    if (int.parse(args.params['id']) != id) {
+      return Response.internalServerError(body: 'Id nao é o mesmo');
+    }
+
     final foundUserEmail = await _userRepository.getByEmail(user.email);
     if (foundUserEmail != null && foundUserEmail.id != id) {
       return Response.internalServerError(
