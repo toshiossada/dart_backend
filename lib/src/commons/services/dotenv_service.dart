@@ -20,12 +20,14 @@ class DotEnvService {
       user = dotEnv['user'] ?? '';
       password = dotEnv['password'] ?? '';
       db = dotEnv['db'] ?? '';
+      jwtKey = dotEnv['JWT_KEY'] ?? '';
     } else {
       host = map?['host'] ?? '';
       port = int.parse(map?['port'] ?? '0');
       user = map?['user'] ?? '';
       password = map?['password'] ?? '';
       db = map?['db'] ?? '';
+      jwtKey = map?['JWT_KEY'] ?? '';
     }
   }
 
@@ -34,4 +36,5 @@ class DotEnvService {
   late final String user;
   late final String password;
   late final String db;
+  late final String jwtKey;
 }

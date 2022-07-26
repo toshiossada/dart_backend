@@ -56,8 +56,11 @@ class UserController {
         body: 'Email ja cadastrado em outro usuario',
       );
     }
-
-    final updated = await _userRepository.update(user.copyWith(id: id));
+    final hashedUser = user.copyWith(
+      password: _bCryptService.gernerateHase(user.password),
+      id: id,
+    );
+    final updated = await _userRepository.update(hashedUser);
     return Response.ok(updated.toJson());
   }
 

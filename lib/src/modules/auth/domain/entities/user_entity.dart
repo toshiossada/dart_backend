@@ -5,15 +5,17 @@ import '../../../../commons/enums/role_enum.dart';
 class UserEntity {
   final int id;
   final String name;
-  final String password;
   final String email;
+  final String password;
   final RoleEnum _role;
+
+
 
   UserEntity({
     required this.id,
     required this.name,
-    required this.password,
     required this.email,
+    required this.password,
     required RoleEnum role,
   }) : _role = role;
 
@@ -22,7 +24,6 @@ class UserEntity {
       'id': id,
       'name': name,
       'email': email,
-      'password': password,
       'role': _role.toString(),
     };
   }
@@ -52,8 +53,8 @@ class UserEntity {
     return UserEntity(
       id: id ?? this.id,
       name: name ?? this.name,
-      password: password ?? this.password,
       email: email ?? this.email,
+      password: password ?? this.password,
       role: role ?? _role,
     );
   }

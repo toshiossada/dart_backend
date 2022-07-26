@@ -20,3 +20,4 @@ dependencies:
   mysql_client: ^0.0.24
   shelf_swagger_ui: ^1.0.0+2
   bcrypt: ^1.1.3
+  dart_jsonwebtoken: ^2.4.1

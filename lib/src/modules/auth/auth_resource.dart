@@ -14,10 +14,10 @@ class AuthResource extends Resource {
         Route.post('/update_password', _updatePassword),
       ];
 
-  FutureOr<Response> _login(Injector injector) {
+  FutureOr<Response> _login(Request request, Injector injector) {
     final controller = injector.get<AuthController>();
 
-    return Response.ok('');
+    return controller.login(request);
   }
 
   FutureOr<Response> _refreshToken(Injector injector) {

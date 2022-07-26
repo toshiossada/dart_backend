@@ -15,3 +15,15 @@ enum RoleEnum {
     }
   }
 }
+
+RoleEnum toRoleEnum(String str) {
+  switch (str) {
+    case 'admin':
+      return RoleEnum.admin;
+    case 'user':
+      return RoleEnum.user;
+    case 'manager':
+    default:
+      return RoleEnum.manager;
+  }
+}
