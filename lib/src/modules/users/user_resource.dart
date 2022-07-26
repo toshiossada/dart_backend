@@ -14,6 +14,7 @@ class UserResource extends Resource {
         Route.get('/:id', _getUser, middlewares: [AuthGuard()]),
         Route.put('/:id', _update, middlewares: [AuthGuard()]),
         Route.delete('/:id', _delete, middlewares: [AuthGuard()]),
+        Route.path('/:id/password', _delete, middlewares: [AuthGuard()]),
       ];
 
   FutureOr<Response> _getAllUser(Injector injector) {
