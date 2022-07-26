@@ -7,117 +7,161 @@
 	},
 	"item": [
 		{
-			"name": "Criar usuario",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Ossada123\",\r\n    \"email\": \"toshiossada11112111@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"admin\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "toshiossada@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
 						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/user/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"user",
-						""
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Listar Usuario",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/user/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"user",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Recuperar Usuario por id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/user/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"user",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Deletar Usuario",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/user/8",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"user",
-						"8"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Atualizar usuario",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Ossada122223\",\r\n    \"email\": \"toshiossada@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"admin\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "User",
+			"item": [
+				{
+					"name": "Criar usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ossada123\",\r\n    \"email\": \"toshiossada11112111@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								""
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8080/user/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"user",
-						"1"
-					]
+				{
+					"name": "Listar Usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar Usuario por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/user/8",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ossada122223\",\r\n    \"email\": \"toshiossada@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"role\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }
