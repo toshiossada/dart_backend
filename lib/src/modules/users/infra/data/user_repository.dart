@@ -54,6 +54,7 @@ WHERE id = :id''';
 
     return user;
   }
+
   @override
   FutureOr<UserEntity?> getByEmail(String email) async {
     var query = '''
@@ -112,6 +113,25 @@ WHERE id = :id''';
     final newUser = await getUserById(user.id);
 
     return newUser!;
+  }
+
+  @override
+  FutureOr<bool> updatePassword(int id, String password) async {
+    var query = '''
+UPDATE User
+SET
+    password = :password
+WHERE id = :id''';
+
+    final result = await _database.query(
+      query,
+      {
+        "password": password,
+        "id": id,
+      },
+    );
+
+    return (result.affectedRows ?? 0) > 0;
   }
 
   @override

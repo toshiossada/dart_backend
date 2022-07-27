@@ -96,19 +96,10 @@ class UserController {
       return Response.internalServerError(body: 'Id nao é o mesmo');
     }
 
-    final foundUserEmail = await _userRepository.getUserById(id);
-
-    if (foundUserEmail == null) {
-      return Response.notFound('Usuario nao encontrado');
-    }
-
     final newPassword = args.data['password'];
-    final hashedUser = foundUserEmail.copyWith(
-      password: _bCryptService.gernerateHase(newPassword),
-      id: id,
-    );
-    final updated = await _userRepository.update(hashedUser);
-    return Response.ok(updated.toJson());
+    await _userRepository.updatePassword(
+        id, _bCryptService.gernerateHase(newPassword));
+    return Response.ok('Senha alterada com sucesso');
   }
 
   FutureOr<Response> createUser(ModularArguments args) async {

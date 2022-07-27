@@ -9,4 +9,5 @@ abstract class IUserRepository {
   FutureOr<UserEntity> update(UserEntity user);
   FutureOr<UserEntity?> insert(UserEntity user);
   FutureOr<UserEntity?> getByEmail(String email);
+  FutureOr<bool> updatePassword(int id, String password);
 }
