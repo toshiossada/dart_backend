@@ -44,6 +44,16 @@ class AuthController {
     }
   }
 
+  FutureOr<Response> checkToken(Request request) async {
+    final token = _requestExtractor.getAuthorizationBearer(request);
+    if (token == null) {
+      return Response.forbidden(jsonEncode({'error': 'Token invalido'}));
+    }
+    final payload = _jwtService.getPayload(token);
+
+    return Response.ok(jsonEncode(payload));
+  }
+
   FutureOr<Response> refresh(Request request) async {
     final token = _requestExtractor.getAuthorizationBearer(request);
     if (token == null) {

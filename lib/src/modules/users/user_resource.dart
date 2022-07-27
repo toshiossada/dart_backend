@@ -14,7 +14,8 @@ class UserResource extends Resource {
         Route.get('/:id', _getUser, middlewares: [AuthGuard()]),
         Route.put('/:id', _update, middlewares: [AuthGuard()]),
         Route.delete('/:id', _delete, middlewares: [AuthGuard()]),
-        Route.path('/:id/password', _delete, middlewares: [AuthGuard()]),
+        Route.path('/:id/password', _updatePassword,
+            middlewares: [AuthGuard()]),
       ];
 
   FutureOr<Response> _getAllUser(Injector injector) {
@@ -40,6 +41,13 @@ class UserResource extends Resource {
     final controller = injector.get<UserController>();
 
     return controller.update(args, request);
+  }
+
+  FutureOr<Response> _updatePassword(
+      ModularArguments args, Injector injector, Request request) {
+    final controller = injector.get<UserController>();
+
+    return controller.updatePassword(args, request);
   }
 
   FutureOr<Response> _createUser(ModularArguments args, Injector injector) {

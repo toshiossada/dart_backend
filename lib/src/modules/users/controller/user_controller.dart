@@ -82,6 +82,35 @@ class UserController {
     return Response.ok(updated.toJson());
   }
 
+  FutureOr<Response> updatePassword(
+      ModularArguments args, Request request) async {
+    final token = _requestExtractor.getAuthorizationBearer(request);
+    if (token == null) {
+      return Response.forbidden(jsonEncode({'error': 'Token invalido'}));
+    }
+    final payload = _jwtService.getPayload(token);
+
+    final id = payload['id'];
+
+    if (int.parse(args.params['id']) != id) {
+      return Response.internalServerError(body: 'Id nao é o mesmo');
+    }
+
+    final foundUserEmail = await _userRepository.getUserById(id);
+
+    if (foundUserEmail == null) {
+      return Response.notFound('Usuario nao encontrado');
+    }
+
+    final newPassword = args.data['password'];
+    final hashedUser = foundUserEmail.copyWith(
+      password: _bCryptService.gernerateHase(newPassword),
+      id: id,
+    );
+    final updated = await _userRepository.update(hashedUser);
+    return Response.ok(updated.toJson());
+  }
+
   FutureOr<Response> createUser(ModularArguments args) async {
     final user = UserEntity.fromMap(args.data);
     final foundUser = await _userRepository.getByEmail(user.email);
