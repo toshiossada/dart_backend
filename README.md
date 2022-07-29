@@ -33,4 +33,17 @@ Para executar o serviço basta rodar
 dart run bin/backend.dart 
 ```
 
-Para ler a documentação da API acesse `http://localhost:8080/swagger/`
+Para ler a documentação da API acesse `http://localhost:8080/swagger/`d
+
+Para compilar o serviço no docker basta rodar 
+```bash
+ docker build -t backend-dart .
+ docker run --rm -p 8080:8080 -v /C/projetos/dart/backend/.env-prod:/.env backend-dart
+``` 
+
+Ou para compilar o serviço pelo bash
+```bash
+dart pub get --offline
+dart compile exe bin/backend.dart -o bin/server
+./bin/server
+```
